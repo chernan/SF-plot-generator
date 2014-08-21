@@ -1,23 +1,17 @@
 ---
-title: "Basic Plot Generator for Science-Fiction stories and the like"
+title: "Basic plot generator for Science-Fiction stories and the like (Shiny app)"
 output:
   html_document
+runtime: shiny
 ---
 
-### Introduction
 
-Let's give to Caesar what belongs to Caesar. This page would never have been possible without the original AutoBlurb file from Conrad Cook, available [here](https://sites.google.com/a/conradcook.net/misc/autoblurb). The original file was supposed to be used with another software called Inspiration Pad Pro 2. As it is explicitely written on the website that there is "No copyright or restrictions on this file; no promises either." I used it with a recipe on my own.
 
-If you have a look at the code, you'll be able to see all the included plot possibilities. Knitting the code with RMarkdown into HTML will provide you with a random subset of ideas. And if you don't like it, feel free to re-knit to get another random set!
-
-As for Conrad Cook, this is provided with no promises. But I personally share it with a Creative Commons Licence : 
-This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+This R Markdown document is made interactive using Shiny technology. 
 
 ***
 
 ```{r, echo=FALSE}
-#http://www.seventhsanctum.com
-#http://tvtropes.org/pmwiki/storygen.php
 options(scipen=999)
 set.seed(as.numeric(format(Sys.time(), "%m%d%H%M%S")))
 
@@ -157,26 +151,28 @@ randtxt <- function(data) {
     })
     return(paste0(other_sel, collapse=''))
 }
+
+inputPanel(
+    actionButton("run", label = "Give me a plot!")
+)
+
+renderUI({
+    input$run
+    return(list(
+        h3("Genre"),
+        HTML(randtxt(table_genre_sf)),
+        h3("Hero"),
+        HTML('This story is about a <b>', randtxt(table_hero), '</b> (<b>', randtxt(table_sex), '</b>) who struggles <b>', randtxt(table_theme), '</b> but does it because of <b>', randtxt(table_motive), '</b>.'),
+        h3("Main plot"),
+        HTML(randtxt(table_mainplot)),
+        h3("Twist"),
+        HTML('In this story, <b>', randtxt(table_twist), '</b>.')
+    ))
+})
 ```
 
 
-### Genre
-
-**`r randtxt(table_genre_sf)`**
-
-### Hero
-
-This story is about a **`r randtxt(table_hero)`** (**`r randtxt(table_sex)`**) who struggles **`r randtxt(table_theme)`** but does it because of **`r randtxt(table_motive)`**.
-
-
-### Main plot
-
-`r randtxt(table_mainplot)`
-
-### Twist
-
-In this story, **`r randtxt(table_twist)`**.
-
 ***
+
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.

@@ -1,0 +1,177 @@
+---
+title: "Générateur d'idées pour romans / nouvelles de Science-Fiction et Fantasy (Shiny app)"
+output:
+  html_document
+runtime: shiny
+---
+
+
+
+Ce document R Markdown est rendu interactif grâce à Shiny. 
+
+***
+
+```{r, echo=FALSE}
+options(scipen=999)
+set.seed(as.numeric(format(Sys.time(), "%m%d%H%M%S")))
+
+table_genre_sf <- read.csv(header = TRUE, stringsAsFactor=FALSE, sep = '*', text="ScienceFiction 
+Ordinateurs ou machines
+Voyage spatial
+Voyage dans le temps
+Voyage dans un univers parallèle
+Nouvelle forme de vie, alien
+Manipulation génétique
+SF militaire
+Space Opera
+Dystopie
+Cyberpunk
+Techno-thriller
+Diesel-punk
+Steampunk
+Clockpunk
+Biopunk")
+
+table_mainplot <- read.csv(header = TRUE, stringsAsFactor=FALSE, sep = '+', text = "Mainplot
+<b>Mieux vaut un mauvais toit que pas de toit du tout</b><br><br> - Les personnages cherchent refuge face **|aux éléments=à une menace|** et trouvent un lieu où se protéger. Mais, ils tombent sur quelque chose de **|dangereux=caché=surnaturel|**, et doivent s'en occuper avant de pouvoir se reposer. **|L'abri contient la cause de la mence à laquelle ils cherchaient à échapper.=L'abri est en fait une Base Secrète.=Ils se battent pour leur survie.=Ils doivent gagner la confiance des locaux.|**
+<b>Mieux veut tard que jamais</b><br><br> - Des adversaires sont venus et ont fait de mauvaises choses, partant avant que les personnages ne les aient découverts. Ils doivent les pourchasser avant qu'ils ne s'échappent complètement. **|Dans leur fuite, ils ont emprunté un chemin/un transport que les personnages connaissent mieux qu'eux.=Ils ont pris un chemin de traverse (littéral ou métaphorique) dans leur tentative de se fondre dans l'environnement (potentiellement hostile).|**
+<b>Chantage</b><br><br> - **|Par la traîtrise=En creusant dans son passé|**, un ennemi a mis la main sur quelque chose qui met le personnage principal en très mauvaise posture. Ces menaces sont **|fondées=sans réel fondement|**. Le personnage principal est menacé **|physiquement=socialement=légalement=au sein du groupe auquel il appartient|**. Maintenant, il se trouve obligé de faire quelque chose qu'il ne veut pas faire.<br>Il doit arrêter ce chantage, intercepter la preuve, tout en répondant aux exigences de son ennemi.<br>**|L'histoire commence alors que le personnage bat son ennemi, lui donnant la possibilité de découvrir ce moyen de pression.=Pour réussir, il doit contacter d'autres personnes, et se mettre à leur service pour qu'ils acceptent de l'aider.=En fait, le personnage n'est pas lui-même l'objet du chantage. C'est un ami, ou une personne dont il a la charge.|**
+<b>Effraction</b><br><br> - Objectif de la mission: pénétrer dans un lieu dangereux, et mettre la main sur **|un objet=une personne|** et s'en sortir sain et sauf. Pour cela, il faut surmonter les défenses actives et passives. **|Le but est de détruire quelque chose=Le but est de tuer quelqu'un=Le but est de saboter un processus dangereux=Le but change en cours de route=Le but est d'obtenir une information, qui doit être révélée le plus vite possible=Le travail doit être fait sans alerter personne=Les personnages ne réalisent pas tout de suite à quel point l'endroit est dangereux=Les personnages doivent échanger l'objectif contre quelque chose qu'ils transportent avec eux|**.
+<b>Capturer le drapeau</b><br><br> - Les personnages doivent sécuriser une cible militaire pour leur camp. Des ennemis sont là, prêts à se battre: tout est dans la tactique. **|Ils doivent réunir ou entraîner une force d'intervention.=Ils travaillent sur la base de mauvaises informations, et le territoire n'est pas tel qu'il leur a été décrit.=Ils doivent coordonner leurs efforts avec un groupe allié.=Ils doivent coordonner leurs efforts avec un groupe rival.|** Le terrain inclus **|une population innocente=des marchandises fragiles=des marchandises précieuses=un chargement stratégique|** qu'il ne faut pas détruire.
+<b>Clearing the Hex</b><br><br> - This is a place where bad things live. We must make it safe for nice people, systematically clearing it of danger. **|The bad things can't be beaten with direct conflict.=We must learn more about the bad things to solve the problem.=The Haunted House.=The Alien Infestation.=The Wild Forest.|**
+<b>Treasure-Hunters</b><br><br> - We are treasure-hunters, who have caught wind of a treasure-laden ruin. We go to explore it, but must deal with its **|supernatural=monstrous=automated=mindless=tormented|** guards to win the treasure and get out alive. **|The treasure itself is something dangerous.=The treasure isn't in a ruin, but in a wilderness=The treasure isn't in a ruin, but hidden someplace apparently civilized=The treasure is someone else's private property.=We don't realize the treasure has a will of its own.|**
+<b>Which Can We Eat?</b><br><br> - We are stranded in a strange place, and must survive by finding food and shelter. **|We must survive until help arrives=We must survive until something is repaired=We must survive until we can repair something.=Then we must find our way home.|**
+<b>Elementary, My Dear Watson</b><br><br> - A **|theft=murder=atrocity=sabotage=espionage=act of malice|** has been committed. We must **|discover who did it by interviewing witnesses, and protect them from murder=find clues, and prevent them from being destroyed or tampered with|** and ultimately **|deliver the information to the authorities=take matters into our own hands|**. We are working to clear false suspicion from **|an innocent=ourselves=a client|**. |We must work **|alongside a professional investigator=alongside an hostile ally=alongside an unwanted side-kick=alone|**. |=**Midway through, we get too close and are taken off the case.**| This happens in **|a small family=a league or corporation=a small town=a commune=a city=a religious organization=a political organization=a government=a vast network of powerful people|**. |=**The climax is a courtroom scene.**
+<b>Escort Service</b><br><br> - We have a valuable **|object=person|** that we must **|take to safety=return to its rightful place|**, against the interferences of chance and rivals who want to **|destory=capture|** it. **|That which we are given stewardship of does not cooperate.=The destination has been destroyed/taken over by the enemy, and we must therefore complete the job ourselves.=Safe arrival doesn't end the story; we must negotiate the safe transferance.=We must protect our charge covertly, without anyone knowing about it.|**
+<b>Good Housekeeping</b><br><br> - We are placed in charge of a large operation like **|a trading company=a feudal barony=the CIA|** and must, despite lack of experience in such things, make it work and thrive. **|We are brought in because a calamity is impending, and the Old Guard want a chance to escape.=We are resented because the transferance of power looks outwardly bad.=We are resented because everyone loved the old boss.=We are resented because of jealousy.|**
+<b>Help is On the Way</b><br><br> - A **|person=church=group=nation=civilization|** is in a hazardous situation they can't survive without rescue. The victims are **|people=robots=animals=aliens=mythical creatures=something hitherto unknown|**. We must help them. **|The victims are hostages, and we must deal with the captors=The victims are hostages, and we must break the siege.=There is a danger that any rescue attempts will strand the rescuers in the victim's bind.=The victim doesn't realize rescue is needed, but thinks everything is fine.|** The threat is **|villian-based=natural disaster=technological malfunction=plague|**. **|We <i>can't</i> leave; something must be addressed at this location.=We begin as rescuers, become trapped, and must escape and get reinforcements.|**
+<b>Hidden Base</b><br><br> - At random we discover a hornet's nest of bad guys, preparing for Super-Bigtime Evil. We must find a way to **|get the word to the good guys=disable the base's Evil Capacity=destroy the base|**. |=**We must work with a local resource to have a chance.**|
+<b>How Much for Just the MacGuffin?</b><br><br> - Within a defined area, something **|important=valuable|** exists. **|We=Our employers|** want it, but so do one or more other groups. The ones who get it will be those who can out-manuver the others, can deal best with the natives, and who learns the most about the MacGuffin. Each competing group has its own agenda and resources. The natives require the competing factions to **|compete=state their case as friends|** before they will help. The MacGuffin was en route somewhere else when its **|conveyance was destroyed=courier was killed|** due to a **|mistake=enemy act=accident=adverse environmental effect=miscalculation|**.
+<b>Sir, We Are Being Fired On</b><br><br> - We are minding our own business when we are attacked or threatened. We don't know why. We must solve the mystery of the attacker's motives, and meanwhile fend off more attacks. **|We unwittingly have something the attackers want.=The attackers want revenge for actions from a prior adventure.=The attackers have mistaken us for others.|**
+<b>Manners, Manners</b><br><br> - We are a diplomatic vanguard, trying to **|open=soothe damaged|** **|political=trade|** relations with with a strange culture. All we have to do is manage for a day or two without offending anybody: but the information we have is incomplete and dangerously misleading. |=**We were chosen by someone who is banking on our failure, and may be actively sabotaging us.**|
+<b>Look, Don't Touch</b><br><br> - We are working surveillance, **|spying on a person=gathering information about a beast in the wild=scouting a new sector|**.  We discover information that leads us to want to intervene, but we can't directly. **|The target gets itself in trouble and we must decide whether to break the rule.=The target is about to cause trouble and we must decide whether to break the rule.=We by our presence cause trouble for the target and must decide how to handle it.|**
+<b>Missing Person</b><br><br> - Someone is gone, for unknown reasons. We are called in by someone who needs them returned. **|The target has been captured.=The target has been captured specifically to lure us into danger.=The target is dangerous and escaped from a facility designed to protect the public.=The target is valuable and escaped from a place designed to keep him safe, cozy, and handy.=The target has a reason for leaving we will sympathize with.=The \"missing person\" is an entire expedition or pilgrimage of some time.|** **|The target has stumbled across another adventure as protagonist.=The target has stumbled across another adventure as victim.=The target is neither a runaway nor missing nor lost:  they're just someone we have been hired to track down (and kill).=We have been hired to track down this target under false pretenses.|**
+<b>Missing Memories</b><br><br> - One or more of us wakes up with no memory of the recent past, and now are trapped in some kind of trouble we don't understand. We must find the reason for the memory lapse, and solve the problems as the mystery unravels. |=**The memories have been suppressed or erased voluntarily, so the recovery amounts to undoing one's own work.**|
+<b>Most Peculiar</b><br><br> - Something bad and inexplicable is happening, and a lot of people are troubled by it: **|People=animals=strangers=monsters=financial crises=rabid babies=diseases|** **|run rampant=are destroying the natural order of society=are altering the sexual mores|**. We must track the phenomenon to its source, and stop it. **|We are unwittingly responsible for the whole thing.|** What seems to be a problem of a **|technological=personal=biological=medical=chemical=political=magical|** nature is actually a problem of another nature entirely.
+<b>No One Has Fired the Bridge</b><br><br> - We are assigned to guard a single tactically vital spot  -- a **|bridge=mountain pass=hyperjump=space station=underwater base=refueling station|**, perhaps -- and we must plan our defensive strategy, set up watches, set traps, distribute resources, and so on; and then deal with the enemy. **|Our intelligence is faulty. Acting on the new information could result in danger, but so could not acting on it.=We learn that the enemy has a good and sympathetic reason for wanting to destroy our post.|**
+<b>Not In Kansas</b><br><br> - Minding our own business, we are zapped into a strange place. We must discover where we are, why we are here and how to return. **|We were brought specifically to help someone in trouble.=We were brought by accident, as a by-product of something strange and secret.=Some of our enemies were brought along, and now we have a new battleground, and innocents whose loyalties to fight over.|**
+<b>An Ounce of Prevention</b><br><br> - An enemy is getting ready to do something bad, and we have been tipped off somehow. We must investigate and then act to prevent it. **|The initial tip-off was a red herring meant to distract us from the real threat.=There are two simultaneous threats, and no apparent way to address them both.|**
+<b>Pandora's Box</b><br><br> - Someone has **|tampered with Things Man Ought Not=opened a portal to Dimension X=cracked a wall in the state prison for the criminally insane=invited the Mafia for dinner=opened a passage to the Land of the Dead|**.  Before we can confront the source of the trouble, we must deal with the waves of trouble emanating from it. **|We can't simply take down the released badness, but must collect it and put it back to the source.=We are drawn into the source and must solve problems on that end before returning.=This turns out to be time travel.|** **|A book=A secret word=A secret code=A gizmo=A spell=The original opener|** is needed to fix the breach.
+<b>Quest for the MacGuffin</b><br><br> - Someone needs the MacGuffin to **|fulfill a prophecy=heal the monarch=prevent a cure=cure a disease=save the world|**. We must find the **|ancient=mysterious=powerful=secret|** MacGuffin. We must learn more about how to track it down, and then take it from wherever it is. The MacGuffin is **|information=a substance=an idea=a specific item=a person|**. **|The MacGuffin is incomplete when found=Someone already owns it=Someone recently stole it=We must infiltrate a group=We must infiltrate a society=We must infiltrate a hidden city=We must infiltrate a cult|**. We must win the MacGuffin **|by guile=by stealth=honestly|**.
+<b>Recent Ruins</b><br><br> - A **|town=castle=starship=outpost|** is lying in ruins. Very recently, it was thriving. We must enter the ruins, explore them, and find out what happened. The **|thing=enemies=weird radiation=monsters=unknown race=ghosts=disease|** that ruined this place is still a threat; we must save the day. |=**The inhabitants destroyed themselves.**|
+<b>Running the Guantlet</b><br><br> - We must travel through a hazardous area without getting **|killed=eaten=robbed=humiliated=debased=diseased=educated|** by whatever is there.  The troubles we encouter are largely environmental -- the place itself is the \"villian.\" |=**The place isn't dangerous at all, and the apparent threats are actually attempts to communicate.**|
+<b>Safari</b><br><br> - We are on a hunting expedition, to capture or kill an elusive and prized creature. We must deal with its environment, its ability to evade us, and perhaps its ability to fight us. **|The creature is immune to our devices and weapons.=There are other people actively protecting the creature.=The creature's lair allows the PC's to stumble onto another adventure.|**
+<b>A Sporting Chance</b><br><br> - We take part in a **|race=contest=tournament=scavanger hunt=sport of some kind|**; we must win. The competition is **|honest=dishonest|**, and we must **|honestly=by any possible mean=at any cost|** overcome any attempt to win from other participants. We are competing **|for a deeper purpose than victory=to keep another contestant safe=to spy on another contestant=to gain access to the competition grounds=to prevent the villain from winning|**. We **|want=don't wish|** to win. The event is **|a deliberate test of our abilities=a rite for entry into an organization=a well known competition|**. |=**The event becomes more deadly than it's supposed to.**|
+<b>Get Out of Jail</b><br><br> - We are imprisoned, and must engineer an escape, overcoming all barriers, guards, animals, automatic measures, and dealing with the geographic isolation. **|Something has happened in the outside world and security has become lax consequently.=We have been hired to test the prison; we aren't normal inmates.=Other prisoners blow the whistle for revenge.=We are there to spy on another prisoner, but then are mistaken for real inmates and kept incarcerated.=We must escape on a tight schedule to get to another adventure outside the walls.=Someone put us there and want something from us in exchange for freedom.|**
+<b>Take Us To Memphis and Don't Slow Down</b><br><br> - We are on-board a populated conveyance -- a **|airline=cruise ship=ferry=blimp=sleeper starship|**, perhaps -- when it is hijacked. We must take action while the normals sit hostage. **|The hijackers are government agents pulling a complicated caper, forcing us to take sides.=The hijackers doon't realize there's a secondary danger that must be dealt with, and any attempt to convince them is considered a trick.=The normals are unhelpful or hostile because they think we are making things worse.|**
+<b>Troublemakers</b><br><br> - **|A bad guy=Bad people|** are kicking up trouble of some kind. The 'bad guy' is a **|monster=dangerous animal=intelligent creature that everyone thinks is an animal=public figure=superior officer=politician=CEO|**. We have to deal with it. **|We must not harm the perpetrators(s), but capture them alive and well.=The bad guys have prepared something dangerous and hidden as insurance if they are captured.=A balance of power perpetuates the trouble, and we must choose sides to tip the balance and fix things.=The trouble is diplomatic or political, and we must make peace, not war.|**
+<b>Uncharted Waters</b><br><br> - We are explorers, and our goal is to enter an unknown territory and scope it out. The job isn't routine: something is there, something fascinating, threatening our **|lives=virtue=sanity=credit rating|**. **|The place itself is threatening, so we must play National Geographic while trying to escape intact.=The place is valuable and wonderful, and something else there is keen on making sure we don't let anyone else know.|** Unfortunately our **|transportation konks out=communications konk out=transportation is destroyed=crew leaves us behind|**.")
+
+table_sex <- read.csv(header = TRUE, stringsAsFactor=FALSE, sep = '*', text = "Sex
+homme
+femme")
+
+table_hero <- read.csv(header = TRUE, stringsAsFactor=FALSE, sep = '*', text = "Hero
+humain
+étranger
+ennemi
+personnage sympathique
+innocent
+pénitent")
+
+# --qui se bat/se débat/lutte...
+table_theme <- read.csv(header = TRUE, stringsAsFactor=FALSE, sep = '*', text = "Theme
+lutte contre une Imposture
+se bat |contre sa pauvreté=pour récupérer un héritage=contre le coût de la vie=dans une féroce compétition pour une grosse somme d'argent=dans une féroce compétition pour une faible somme d'argent=pour garder une possession légalement acquise=pour garder des possessions illégalement acquises
+se bat contre l'Autorité
+lutte pour se faire Pardonner
+se bat contre une Conspiration
+lutte pour Sauver quelqu'un
+lutte pour développer son=lutte contre la perte progressive de son=se débat après de vol de son=pour cacher sa véritable| Identité
+se débat avec un Amour |Contre-nature=Malsain=Vrai
+|se débat avec les conséquences de son=se bat contre la pulsion de commettre un=lutte contre le désir de commettre un=se débat face à la nécessité de commettre un=se bat pour quitter une vie de| Crime
+se débat face à la Méfiance
+lutte contre le Suicide
+poursuit une Quête
+se débat face |au Déshonneur=à une question d'Honneur")
+
+# --mais le fait à cause...
+table_motive <- read.csv(header = TRUE, stringsAsFactor=FALSE, sep = '*', text = "Motive
+d'un besoin de Vengeance
+d'un Désastre |naturel=créé par l'homme=intentionnel=social=militaire=technologique=personnel
+|d'un Amour profond=d'une Haine profonde| pour |l'un des siens=l'un des adversaires=la cause=un des résidents du lieu=son supérieur=le chef des adversaires=un membre de sa famille=un membre d'une famille importante=une personne morte depuis longtemps
+|de la Poursuite de son ennemi=d'ennemis qui le Poursuivent=d'une pulsion de Chasseur
+d'un besoin de=de la volonté d'empêcher une=de l'agitation causée par une| Rebellion
+d'une Trahison |personnelle=privée=publique=politique=inattendue=attendue=immorale=spirituelle
+|de la menace d'une=du désir de rejoindre une=du désir de déclencher une=du besoin de fuir une=de la volonté de stopper une| Persécution
+|de la nécessité d'éviter son propre Sacrifice=d'un désir Sacrifice personnel=de la volonté d'éviter le Sacrifice d'un ami=de la volonté d'éviter le Sacrifice d'un ennemi
+d'une Rivalité |=professionnelle=amoureuse=familiale
+d'une Découverte |terrible=mystérieuse=longtemps convoitée=politique=spirituelle=technologique=inattendue=paradoxale
+d'une Ambition |personnelle=dévorante=honorable=vouée à l'échec
+de la nécessité de Survie")
+
+table_twist <- read.csv(header = TRUE, stringsAsFactor=FALSE, sep = '*', text = "UniversalTwist
+le personnage principal est là en observateur
+le point de vue est celui de quelqu'un d'extérieur à l'action
+il y a un renversement des rôles en plein milieu
+le personnage principal a un partenaire inhabituel: il doit travailler avec quelqu'un |qu'il n'aime pas=qui ne l'aime pas=qui veut le tuer
+les victimes sont les méchants et les méchants victimes
+des Autres peuvent nous aider, mais seulement si nous les aidons
+le véritable ennemi est un ami
+le personnage principal doit agir |de manière non-violente=avec une grande discrétion
+le personnage principal doit se débrouiller sans |ses pouvoirs habituels=son équipement habituel=son autorité habituelle
+l'ennemi est notre Némesis
+des prédécesseurs ont déjà essayé et échoué -- le personnage principal |les trouve enfermés=les découvre agonisants=les trouve morts=découvre qu'ils se sont intégrés à l'environnement local=découvres qu'ils sont devenus fous=découvre des objets leur ayant apartenu
+il y a des innocents à proximité qu'il faut protéger
+l'aventure commence abruptement -- le personnage principal est projeté directement dans l'action
+le personnage principal doit agir |incognito=en tant qu'espion=sous les couleurs de l'ennemi
+à cause de ressources limitées, il faut choisir qui ou quoi sauver
+la mission a une portée limitée: le problème n'est pas résolu
+l'un des personnages est reconnu comme un |héritier perdu=noble=dieu=prophète
+un autre groupe est en compétition pour le même objectif")
+
+randtxt <- function(data) {
+    selection <- unlist(data[sample(1:nrow(data), size = 1), ])
+    
+    if (!grepl(pattern = '|', fixed = TRUE, x = selection)) {
+        return(selection)
+    }
+    other_sel <- sapply(
+      unlist(strsplit(x = unlist(selection), fixed = TRUE, split = '|')), 
+      FUN=function(text_part) {
+        if (grepl(pattern = '=', fixed = TRUE, x = text_part)) {
+            possibilities <- unlist(strsplit(x = unlist(text_part), fixed = TRUE, split = '='))
+            choice <- possibilities[sample(1:length(possibilities), size = 1)]
+            return(choice)
+        } 
+        else {
+            return(text_part)
+        }
+    })
+    return(paste0(other_sel, collapse=''))
+}
+
+inputPanel(
+    actionButton("run", label = "Donne-moi une idée!")
+)
+
+renderUI({
+    input$run
+    return(list(
+        h3("Héros"),
+        HTML('L\'histoire est celle d\'un <b>', randtxt(table_hero), '</b> (<b>', randtxt(table_sex), '</b>) qui <b>', randtxt(table_theme), '</b> et le fait à cause <b>', randtxt(table_motive), '</b>.'),
+        h3("Intrigue principale"),
+        HTML(randtxt(table_mainplot)),
+        h3("Ajout à l'intrigue"),
+        HTML('Dans cete histoire, <b>', randtxt(table_twist), '</b>.'),
+        h3("Cadre"),
+        HTML(randtxt(table_genre_sf))
+    ))
+})
+```
+
+
+***
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.

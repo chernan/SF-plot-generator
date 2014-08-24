@@ -83,14 +83,14 @@ penitent")
 # --who struggles...
 table_theme <- read.csv(header = TRUE, stringsAsFactor=FALSE, sep = '*', text = "Theme
 with Deception
-with poverty=to win an inheritance=with the cost of wealth=in a viscious competition for great wealth=in a viscious competition for a paltry sum=to keep rightfully owned property=to keep ill-gotten gains| (Money)
+with poverty=to win an inheritance=with the cost of wealth=in a vicious competition for great wealth=in a vicious competition for a paltry sum=to keep rightfully owned property=to keep ill-gotten gains| (Money)
 with Authority
 to Make Amends
 with a Conspiracy
 to Rescue someone
 to develop a personal sense of=with a dissolving=against a mistaken=to conceal their true| Identity
-with |Illicit=Sick| Love
-with |having committed a=the urge to commit a=recovering from a life of=the desire to commit a spiritual| Crime
+with |Illicit=Sick=True| Love
+with |having committed a=the urge to commit a=the desire to commit a=the necessity to commit a=recovering from a life of| Crime
 with Suspicion
 with Suicide
 and Searches
@@ -113,16 +113,16 @@ the need for Survival")
 
 table_twist <- read.csv(header = TRUE, stringsAsFactor=FALSE, sep = '*', text = "UniversalTwist
 we're on the outside looking in
-the point of view is traditionally the NPC's perspective
+the point of view is the NPC's perspective
 there's a major role-reversal halfway through
-we have an uncommon partner: we must work with someone |we'd rather not=who wants to kill us
+we have an uncommon partner: we must work with someone |we'd rather not=we want to kill=who wants to kill us
 the victims are villians and the villians victims
 there are Others who can help us, if we help them
 the real villian is our friend
 we must act |without violence=with great discretion
 we must do without our regular |powers=equipment=authority
 the villian is our old nemesis
-our predecessors have already failed -- we find |them locked up=them dying=them dead=them gone native=them completely insane=their equipment=their map=their journal=their vehicle
+our predecessors have already failed -- we find |them locked up=them dying=them dead=them gone native=them completely insane=their possessions
 there are innocents nearby who we must protect
 the adventure begins suddenly -- we are thrown into it
 we must go |incognito=as spies=under enemy colors

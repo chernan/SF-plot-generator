@@ -1,6 +1,8 @@
 SF-plot-generator
 =================
 
+From the blog [One Wet Sneaker](https://onewetsneaker.wordpress.com/).
+
 ### Basic Plot Generator for Science-Fiction stories and the like
 
 Let's give to Caesar what belongs to Caesar. This page would never have been possible without the original AutoBlurb file from Conrad Cook, available [here](https://sites.google.com/a/conradcook.net/misc/autoblurb). The original file was supposed to be used with another software called Inspiration Pad Pro 2. As it is explicitely written on the website that there is "No copyright or restrictions on this file; no promises either." I used it with a recipe on my own.
